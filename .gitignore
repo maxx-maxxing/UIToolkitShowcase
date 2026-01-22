@@ -1,0 +1,64 @@
+========== UNITY - CORE ==========
+
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+MemoryCaptures/
+*.stacktrace
+
+========== IDE (Rider / VS / VSCode) ==========
+
+.idea/
+.vs/
+.vscode/
+
+*.csproj
+*.sln
+*.user
+*.suo
+*.tmp
+*.pidb
+*.booproj
+*.prefs
+*.pidb
+*.pdb
+*.mdb
+
+========== UNITY GENERATED ==========
+
+sysinfo.txt
+.DS_Store
+
+========== CRASH REPORTS ==========
+
+[Cc]rash[Dd]umps/
+
+========== COLLAB / PLASTIC SCM ==========
+
+[Pp]lasticSCM/
+[Cc]ollab/
+
+========== BUILD OUTPUTS ==========
+
+# Android
+*.apk
+*.aab
+
+# Apple / iOS
+*.xcodeproj
+*.xcworkspace
+*.xcuserdata/
+*.xcuserstate
+*.ipch
+*.obj
+
+========== KEEP THESE (REQUIRED FOR UNITY) ==========
+
+!Assets/
+!ProjectSettings/
+!Packages/
+!ProjectSettings/ProjectVersion.txt
