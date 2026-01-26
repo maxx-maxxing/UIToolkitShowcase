@@ -51,3 +51,46 @@
     transition-duration: 0.01s;
     scale: 1 1;
 }
+
+
+
+.text--title {
+    font-size: 80px;
+    white-space: nowrap;
+    padding-top: 40px;
+    padding-right: 0;
+    padding-bottom: 40px;
+    padding-left: 0;
+    justify-content: flex-start;
+    align-items: auto;
+    align-self: center;
+    -unity-font-definition: url("project://database/Assets/Fonts/Orbitron-VariableFont_wght%20SDF.asset?fileID=11400000&guid=75dba3b030a9eed40b2511542e50c2bf&type=2#Orbitron-VariableFont_wght SDF");
+    -unity-font-style: bold-and-italic;
+}
+
+.text--paragraph {
+    font-size: 36px;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    flex-shrink: 0;
+    flex-grow: 0;
+    white-space: normal;
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 20px;
+    padding-right: 80px;
+    padding-bottom: 20px;
+    padding-left: 80px;
+    -unity-font-definition: url("project://database/Assets/Fonts/Orbitron-VariableFont_wght%20SDF.asset?fileID=11400000&guid=75dba3b030a9eed40b2511542e50c2bf&type=2#Orbitron-VariableFont_wght SDF");
+    -unity-font-style: normal;
+}
