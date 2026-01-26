@@ -52,8 +52,6 @@
     scale: 1 1;
 }
 
-
-
 .text--title {
     font-size: 80px;
     white-space: nowrap;
@@ -93,4 +91,19 @@
     padding-left: 80px;
     -unity-font-definition: url("project://database/Assets/Fonts/Orbitron-VariableFont_wght%20SDF.asset?fileID=11400000&guid=75dba3b030a9eed40b2511542e50c2bf&type=2#Orbitron-VariableFont_wght SDF");
     -unity-font-style: normal;
+}
+
+.button-close {
+}
+
+.button-close:hover {
+    transition-duration: 0.1s;
+    scale: 1.1 1.1;
+    -unity-background-image-tint-color: rgba(92, 89, 84, 0.72);
+    background-image: url("project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=5866165431930342980&guid=654b5f7730dd0874ebe095bfd8404c71&type=3#Remove@2x");
+    background-color: rgb(13, 10, 10);
+}
+
+.button-close:active {
+    scale: 1 1;
 }
