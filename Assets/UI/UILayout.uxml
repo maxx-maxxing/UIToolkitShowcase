@@ -19,7 +19,7 @@
             <ui:VisualElement name="BottomSheet" class="bottomsheet">
                 <ui:Label text="Omnes" name="PopupTitle" class="text--title" style="padding-top: 80px; padding-bottom: 80px;"/>
                 <ui:VisualElement name="Robot" class="image--robot image--robot--up"/>
-                <ui:Label text="Sed in rebus apertissimis nimium longi sumus" name="PopupParagraph" class="text--paragraph" style="padding-top: 100px; padding-bottom: 100px;"/>
+                <ui:Label text="Sed in rebus apertissimis nimium longi sumus" name="Message" class="text--paragraph" style="padding-top: 100px; padding-bottom: 100px;"/>
                 <ui:Button text="" selectable="true" focusable="true" name="ButtonClose" class="button-close" style="position: absolute; width: 45px; height: 45px; right: 50px; background-color: rgba(0, 0, 0, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; background-image: url(&quot;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=5866165431930342980&amp;guid=654b5f7730dd0874ebe095bfd8404c71&amp;type=3#Remove@2x&quot;); top: 50px; padding-top: 10px; margin-top: 2px; color: rgba(16, 16, 16, 0.24); -unity-background-image-tint-color: rgba(91, 88, 84, 0.16);"/>
             </ui:VisualElement>
         </ui:VisualElement>

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using DG.Tweening;
 
 public class UIController : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class UIController : MonoBehaviour
     private VisualElement _scrim;
     private VisualElement _boy;
     private VisualElement _robot;
+    private Label _message;
 
     void Start()
     {
@@ -34,6 +36,7 @@ public class UIController : MonoBehaviour
         _scrim = root.Q<VisualElement>("Scrim");
         _boy = root.Q<VisualElement>("Boy");
         _robot = root.Q<VisualElement>("Robot");
+        _message = root.Q<Label>("Message");
 
         if (_bottomContainer == null) Debug.LogError("UIController: Could not find VisualElement named 'ContainerBottom'.", this);
         if (_openButton == null) Debug.LogError("UIController: Could not find Button named 'ButtonOpen'.", this);
@@ -42,8 +45,8 @@ public class UIController : MonoBehaviour
         if (_scrim == null) Debug.LogError("UIController: Could not find Sheet named 'Scrim'.", this);
         if (_boy == null) Debug.LogError("UIController: Could not find Sheet named 'Boy'.", this);
         if (_robot == null) Debug.LogError("UIController: Could not find Robot named 'Robot'.", this);
-
-        if (_bottomContainer == null || _openButton == null || _closeButton == null || _bottomSheet == null || _scrim == null || _boy == null || _robot == null)
+        if (_message == null) Debug.LogError("UIController: Could not find Message named 'Message'.", this);
+        if (_bottomContainer == null || _openButton == null || _closeButton == null || _bottomSheet == null || _scrim == null || _boy == null || _robot == null || _message == null)
             return;
 
         _bottomContainer.style.display = DisplayStyle.None;
@@ -91,6 +94,10 @@ public class UIController : MonoBehaviour
         _robot.RegisterCallback<TransitionEndEvent>(
             evt => _robot.ToggleInClassList("image--robot--up")
         );
+        
+        _message.text = string.Empty;
+        string m = "\"Sed in rebus apertissimis nimium longi sumus.\"";
+        DOTween.To(() => _message.text, x => _message.text = x, m, 3f) .SetEase(Ease.Linear);
 
     }
 
