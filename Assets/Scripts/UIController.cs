@@ -52,6 +52,8 @@ public class UIController : MonoBehaviour
         _bottomContainer.style.display = DisplayStyle.None;
         
         Invoke(nameof(AnimateBoy), .1f);
+        
+        _bottomSheet.RegisterCallback<TransitionEndEvent>(OnBottomSheetDown);
 
         _openButton.clicked += OnOpenButtonClicked;
         _closeButton.clicked += OnCloseButtonClicked;
@@ -107,12 +109,14 @@ public class UIController : MonoBehaviour
         _scrim.RemoveFromClassList("scrim--fadein");
         _bottomSheet.RemoveFromClassList("bottomsheet--up");
 
-        // After animation finishes, hide container
-        _bottomSheet.schedule.Execute(() =>
+    }
+
+    private void OnBottomSheetDown(TransitionEndEvent evt)
+    {
+        if (!_bottomSheet.ClassListContains("bottomsheet--up"))
         {
             _bottomContainer.style.display = DisplayStyle.None;
-        }).StartingIn(1000); // match your 1s transition
-
+        }
     }
     
    
