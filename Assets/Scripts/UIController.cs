@@ -8,6 +8,8 @@ public class UIController : MonoBehaviour
     private Button _closeButton;
     private VisualElement _bottomSheet;
     private VisualElement _scrim;
+    private VisualElement _boy;
+    private VisualElement _robot;
 
     void Start()
     {
@@ -30,22 +32,37 @@ public class UIController : MonoBehaviour
         _closeButton = root.Q<Button>("ButtonClose");
         _bottomSheet = root.Q<VisualElement>("BottomSheet");
         _scrim = root.Q<VisualElement>("Scrim");
+        _boy = root.Q<VisualElement>("Boy");
+        _robot = root.Q<VisualElement>("Robot");
 
         if (_bottomContainer == null) Debug.LogError("UIController: Could not find VisualElement named 'ContainerBottom'.", this);
         if (_openButton == null) Debug.LogError("UIController: Could not find Button named 'ButtonOpen'.", this);
         if (_closeButton == null) Debug.LogError("UIController: Could not find Button named 'ButtonClose'.", this);
         if (_bottomSheet == null) Debug.LogError("UIController: Could not find Sheet named 'BottomSheet'.", this);
         if (_scrim == null) Debug.LogError("UIController: Could not find Sheet named 'Scrim'.", this);
+        if (_boy == null) Debug.LogError("UIController: Could not find Sheet named 'Boy'.", this);
+        if (_robot == null) Debug.LogError("UIController: Could not find Robot named 'Robot'.", this);
 
-        if (_bottomContainer == null || _openButton == null || _closeButton == null || _bottomSheet == null || _scrim == null)
+        if (_bottomContainer == null || _openButton == null || _closeButton == null || _bottomSheet == null || _scrim == null || _boy == null || _robot == null)
             return;
 
         _bottomContainer.style.display = DisplayStyle.None;
+        
+        Invoke(nameof(AnimateBoy), .1f);
 
         _openButton.clicked += OnOpenButtonClicked;
         _closeButton.clicked += OnCloseButtonClicked;
         
         
+
+
+    }
+
+    
+
+    private void AnimateBoy()
+    {
+        _boy.RemoveFromClassList("image--boy--inair");
     }
 
     private void OnOpenButtonClicked()
@@ -62,11 +79,20 @@ public class UIController : MonoBehaviour
             _scrim.AddToClassList("scrim--fadein");
             _bottomSheet.AddToClassList("bottomsheet--up");
         });
-        
+
+        AnimateRobot();
+
 
     }
 
+    private void AnimateRobot()
+    {
+        _robot.ToggleInClassList("image--robot--up");
+        _robot.RegisterCallback<TransitionEndEvent>(
+            evt => _robot.ToggleInClassList("image--robot--up")
+        );
 
+    }
 
     private void OnCloseButtonClicked()
     {
