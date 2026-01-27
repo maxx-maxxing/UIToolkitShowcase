@@ -6,6 +6,8 @@ public class UIController : MonoBehaviour
     private VisualElement _bottomContainer;
     private Button _openButton;
     private Button _closeButton;
+    private VisualElement _bottomSheet;
+    private VisualElement _scrim;
 
     void Start()
     {
@@ -26,28 +28,64 @@ public class UIController : MonoBehaviour
         _bottomContainer = root.Q<VisualElement>("ContainerBottom");
         _openButton = root.Q<Button>("ButtonOpen");
         _closeButton = root.Q<Button>("ButtonClose");
+        _bottomSheet = root.Q<VisualElement>("BottomSheet");
+        _scrim = root.Q<VisualElement>("Scrim");
 
         if (_bottomContainer == null) Debug.LogError("UIController: Could not find VisualElement named 'ContainerBottom'.", this);
         if (_openButton == null) Debug.LogError("UIController: Could not find Button named 'ButtonOpen'.", this);
         if (_closeButton == null) Debug.LogError("UIController: Could not find Button named 'ButtonClose'.", this);
+        if (_bottomSheet == null) Debug.LogError("UIController: Could not find Sheet named 'BottomSheet'.", this);
+        if (_scrim == null) Debug.LogError("UIController: Could not find Sheet named 'Scrim'.", this);
 
-        if (_bottomContainer == null || _openButton == null || _closeButton == null)
+        if (_bottomContainer == null || _openButton == null || _closeButton == null || _bottomSheet == null || _scrim == null)
             return;
 
         _bottomContainer.style.display = DisplayStyle.None;
 
         _openButton.clicked += OnOpenButtonClicked;
         _closeButton.clicked += OnCloseButtonClicked;
+        
+        
     }
 
     private void OnOpenButtonClicked()
     {
         _bottomContainer.style.display = DisplayStyle.Flex;
+
+        // reset start states
+        _scrim.RemoveFromClassList("scrim--fadein");
+        _bottomSheet.RemoveFromClassList("bottomsheet--up");
+
+        // next frame: animate
+        _bottomSheet.schedule.Execute(() =>
+        {
+            _scrim.AddToClassList("scrim--fadein");
+            _bottomSheet.AddToClassList("bottomsheet--up");
+        });
+        
+
     }
+
+
 
     private void OnCloseButtonClicked()
     {
-        _bottomContainer.style.display = DisplayStyle.None;
+        // Start fade-out
+        _scrim.RemoveFromClassList("scrim--fadein");
+        _bottomSheet.RemoveFromClassList("bottomsheet--up");
+
+        // After animation finishes, hide container
+        _bottomSheet.schedule.Execute(() =>
+        {
+            _bottomContainer.style.display = DisplayStyle.None;
+        }).StartingIn(1000); // match your 1s transition
+
     }
+    
+   
+
+
+
+
 }
 
