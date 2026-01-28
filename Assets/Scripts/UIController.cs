@@ -28,17 +28,17 @@ public class UIController : MonoBehaviour
               2) Did those queries actually find everything I need (if not, log what’s missing) */
 
         _bottomContainer.style.display = DisplayStyle.None;
+        // ^^ Hide container for the pop-up slider
         
         Invoke(nameof(AnimateBoy), BoyAnimationDelay);
+        /* ^^ After x time, call AnimateBoy(), which removes
+         "image--boy--inair" from its respective class list */
         
         _bottomSheet.RegisterCallback<TransitionEndEvent>(OnBottomSheetDown);
+        // ^^ When bottom sheet finishes animating, call OnBottomSheetDown()
 
         _openButton.clicked += OnOpenButtonClicked;
         _closeButton.clicked += OnCloseButtonClicked;
-        
-        
-
-
     }
 
     private bool InitializeUI()
@@ -104,6 +104,8 @@ public class UIController : MonoBehaviour
         // reset start states
         _scrim.RemoveFromClassList("scrim--fadein");
         _bottomSheet.RemoveFromClassList("bottomsheet--up");
+        /* ^^ Just in case bottomsheet--up and/or scrim--fadein is in the class list
+         for those elements, remove them before running execute to add them */
 
         // next frame: animate
         _bottomSheet.schedule.Execute(() =>
@@ -111,6 +113,7 @@ public class UIController : MonoBehaviour
             _scrim.AddToClassList("scrim--fadein");
             _bottomSheet.AddToClassList("bottomsheet--up");
         });
+        // ^^ Run this code the following update frame
 
         AnimateRobot();
 
@@ -120,20 +123,22 @@ public class UIController : MonoBehaviour
     private void AnimateRobot()
     {
         _robot.ToggleInClassList("image--robot--up");
-
         _robot.RegisterCallback<TransitionEndEvent>(OnRobotTransitionEnd);
+        // ^^ When animation finishes, call passed fxn
 
         _message.text = string.Empty;
+        // ^^ Set _message to Empty
+        
         DOTween.To(() => _message.text, x => _message.text = x, MessageText, TypeDuration).SetEase(Ease.Linear);
+        // ^^ Every frame, slowly change this variable until it equals that value.
     }
-
     
     private void OnRobotTransitionEnd(TransitionEndEvent evt)
     {
         _robot.ToggleInClassList("image--robot--up");
         _robot.UnregisterCallback<TransitionEndEvent>(OnRobotTransitionEnd);
+        // ^^ After animation finishes, turn off listener
     }
-
 
     private void OnCloseButtonClicked()
     {
@@ -151,7 +156,25 @@ public class UIController : MonoBehaviour
         }
     }
     
-   
+    private void OnDestroy()
+    {
+        
+        if (_bottomSheet != null)
+            _bottomSheet.UnregisterCallback<TransitionEndEvent>(OnBottomSheetDown);
+
+        if (_robot != null)
+            _robot.UnregisterCallback<TransitionEndEvent>(OnRobotTransitionEnd);
+
+        // Unsubscribe button delegates
+        if (_openButton != null)
+            _openButton.clicked -= OnOpenButtonClicked;
+
+        if (_closeButton != null)
+            _closeButton.clicked -= OnCloseButtonClicked;
+    }
+    // ^^ Before this object is destroyed, remove all event subscriptions to avoid bugs
+
+
 
 
 
